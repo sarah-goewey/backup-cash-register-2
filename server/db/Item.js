@@ -72,7 +72,6 @@ Item.addHook("afterSave", async (item) => {
         }
       }
     }
-
     transaction.total = total.toFixed(2);
     await transaction.save();
   }
