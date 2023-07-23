@@ -42,4 +42,40 @@ const Item = conn.define("item", {
   },
 });
 
+//untested
+Item.prototype.findTransaction = function () {
+  return conn.models.transaction.findOne({
+    where: {
+      id: this.transactionId,
+    },
+  });
+};
+
+Item.addHook("afterSave", async (item) => {
+  const transaction = await item.findTransaction();
+  if (transaction) {
+    const items = await transaction.findItems();
+    let total = 0.0;
+
+    for (const item of items) {
+      if (item.discount) {
+        const discountFraction = item.discount / 100;
+        const discountedPrice = item.price * (1 - discountFraction) * 1;
+        total += discountedPrice;
+        if (item.taxState === "NY") {
+          total += discountedPrice * 0.08875;
+        }
+      } else {
+        total += item.price * 1;
+        if (item.taxState === "NY") {
+          total += item.price * 0.08875;
+        }
+      }
+    }
+
+    transaction.total = total.toFixed(2);
+    await transaction.save();
+  }
+});
+
 module.exports = Item;

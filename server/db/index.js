@@ -29,16 +29,19 @@ const syncAndSeed = async () => {
       quantity: 2,
       price: 17.99,
       transactionId: moesTransaction.id,
+      taxState: "NY",
     }),
     Item.create({
       name: "Jane Eyre",
       price: 18.99,
       transactionId: moesTransaction.id,
+      taxState: "NY",
     }),
     Item.create({
       price: 10.0,
       discount: 25,
       transactionId: moesTransaction.id,
+      taxState: "NY",
     }),
   ]);
 

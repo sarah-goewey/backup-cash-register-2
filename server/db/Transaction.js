@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, UUID, UUIDV4, TEXT, BOOLEAN, ENUM, INTEGER, DECIMAL } =
+const { STRING, UUID, UUIDV4, TEXT, BOOLEAN, ENUM, INTEGER, DECIMAL, VIRTUAL } =
   conn.Sequelize;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -22,19 +22,19 @@ const Transaction = conn.define("transaction", {
       min: 0,
       max: 99,
     },
-    total: {
-      type: DECIMAL(10, 2),
-    },
-    tendered: {
-      type: DECIMAL(10, 2),
-    },
-    change: {
-      type: DECIMAL(10, 2),
-    },
-    complete: {
-      type: BOOLEAN,
-      defaultValue: false,
-    },
+  },
+  total: {
+    type: DECIMAL(10, 2),
+  },
+  tendered: {
+    type: DECIMAL(10, 2),
+  },
+  change: {
+    type: DECIMAL(10, 2),
+  },
+  complete: {
+    type: BOOLEAN,
+    defaultValue: false,
   },
 });
 
