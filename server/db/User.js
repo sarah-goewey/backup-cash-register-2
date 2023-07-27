@@ -3,6 +3,7 @@ const { STRING, UUID, UUIDV4, TEXT, BOOLEAN } = conn.Sequelize;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT;
+const { Op } = require("sequelize");
 
 const User = conn.define("user", {
   id: {
@@ -33,10 +34,37 @@ User.addHook("beforeSave", async (user) => {
   }
 });
 
+User.addHook("beforeFind", async (options) => {
+  if (
+    options &&
+    options.where &&
+    options.where.id &&
+    !options.excludeFromHook
+  ) {
+    const user = await User.findByPk(options.where.id);
+    if (user) {
+      const transactions = await Transaction.findAll({
+        where: {
+          userId: user.id,
+        },
+      });
+
+      const transactionIds = transactions.map((transaction) => transaction.id);
+
+      options.where = {
+        ...options.where,
+        transactionId: {
+          [Op.in]: transactionIds,
+        },
+      };
+    }
+  }
+});
+
 User.findByToken = async function (token) {
   try {
     const { id } = jwt.verify(token, process.env.JWT);
-    const user = await this.findByPk(id);
+    const user = await this.findByPk(id, { excludeFromHook: true });
     if (user) {
       return user;
     }
@@ -73,6 +101,30 @@ User.prototype.usersTransactions = function () {
       userId: this.id,
     },
   });
+};
+
+User.prototype.usersItems = async function () {
+  try {
+    const transactions = await this.getTransactions({
+      order: [["createdAt"]],
+      excludeFromHook: true,
+    });
+
+    const transactionIds = transactions.map((transaction) => transaction.id);
+
+    const items = await conn.models.item.findAll({
+      where: {
+        transactionId: {
+          [Op.in]: transactionIds,
+        },
+      },
+    });
+
+    return items;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 module.exports = User;

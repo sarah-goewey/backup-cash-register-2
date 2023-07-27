@@ -5,7 +5,7 @@ import Landing from "./Landing";
 import CreateAccount from "./CreateAccount";
 import MyTransactions from "./MyTransactions";
 import { useSelector, useDispatch } from "react-redux";
-import { loginWithToken, fetchTransactions } from "../store";
+import { loginWithToken, fetchTransactions, fetchItems } from "../store";
 import { Link, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
     if (!prevAuth.current.id && auth.id) {
       console.log("logged in");
       dispatch(fetchTransactions());
+      dispatch(fetchItems());
     }
     if (prevAuth.current.id && !auth.id) {
       console.log("logged out");
