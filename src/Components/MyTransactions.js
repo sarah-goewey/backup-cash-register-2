@@ -20,7 +20,7 @@ const MyTransactions = () => {
                   .map((item) => {
                     return (
                       <li key={item.id}>
-                        {item.name}, {item.price}. (tax:{" "}
+                        {item.name} x{item.quantity}, {item.price}. (tax:{" "}
                         {item.taxState === "NY" ? "New York" : "none"}.{" "}
                         discount: {item.discount || "none"}{" "}
                         {item.discount ? "%" : ""})

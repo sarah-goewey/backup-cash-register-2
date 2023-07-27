@@ -4,6 +4,9 @@ const items = (state = [], action) => {
   if (action.type === "SET_ITEMS") {
     return action.items;
   }
+  if (action.type === "CREATE_ITEM") {
+    return [...state, action.item];
+  }
   return state;
 };
 
