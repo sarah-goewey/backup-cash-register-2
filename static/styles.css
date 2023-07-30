@@ -1,5 +1,7 @@
 body {
-  font-family: verdana;
+  font-family: monospace;
+  background-color: lightseagreen;
+  text-align: center;
 }
 
 form {
@@ -15,6 +17,14 @@ form > * {
 nav {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  background-color: #105c57;
+  height: 35px;
+  margin: 10px 0;
+}
+
+nav > a {
+  color: white;
 }
 
 .item {
@@ -25,11 +35,36 @@ nav {
 }
 
 .transaction {
-  border: 1px solid black;
-  margin: 5px;
+  margin: 10px;
+  background-color: #105c57;
+  color: white;
+}
+
+.itemInTrans {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+}
+
+.itemInTrans > * {
+  margin: 0;
 }
 
 ul {
   list-style: none;
   padding-left: 0;
+}
+
+button {
+  background-color: white;
+  border: 1px solid #105c57;
+  font-family: monospace;
+}
+
+input,
+select {
+  background-color: #105c57;
+  color: white;
+  margin: 1px 5px;
 }

@@ -123,112 +123,106 @@ const CashRegister = () => {
   };
 
   return (
-    <div>
-      <h1>Cash Register</h1>
-      <div>
-        Welcome {auth.username}!!
-        <button onClick={() => dispatch(logout())}>Logout</button>
-      </div>
-      <form onSubmit={create}>
-        {items.map((item, idx) => {
-          return (
-            <div key={idx} className="item">
-              <label>
-                name
-                <input
-                  label="name"
-                  value={item.name}
-                  name="name"
-                  onChange={(ev) => onChangeItems(ev, idx)}
-                />
-              </label>
-              <label>
-                quantity
-                <input
-                  type="number"
-                  label="quantity"
-                  value={item.quantity}
-                  name="quantity"
-                  onChange={(ev) => onChangeItems(ev, idx)}
-                />
-              </label>
-              <label>
-                price
-                <input
-                  type="number"
-                  label="price"
-                  value={item.price}
-                  name="price"
-                  onChange={(ev) => onChangeItems(ev, idx)}
-                />
-              </label>
-              <label>
-                discount
-                <input
-                  type="number"
-                  label="discount"
-                  value={item.discount}
-                  name="discount"
-                  onChange={(ev) => onChangeItems(ev, idx)}
-                />
-              </label>
-              <label>
-                tax?
-                <select
-                  label="discount"
-                  value={item.taxState}
-                  name="taxState"
-                  onChange={(ev) => onChangeItems(ev, idx)}
-                >
-                  <option value="NY">NY</option>
-                  <option value="none">none</option>
-                </select>
-              </label>
-            </div>
-          );
-        })}
-        <button type="button" onClick={addItem} aria-haspopup="true">
-          add more items
-        </button>
-        <button type="button" onClick={calculateTotal}>
-          calculate total
-        </button>
-        <label>
-          total
-          <input
-            type="number"
-            label="total"
-            value={transaction.total}
-            name="total"
-            onChange={onChangeTransaction}
-          />
-        </label>
-        <label>
-          tendered
-          <input
-            type="number"
-            label="tendered"
-            value={transaction.tendered}
-            name="tendered"
-            onChange={onChangeTransaction}
-          />
-        </label>
-        <button type="button" onClick={calculateChange}>
-          calculate change
-        </button>
-        <label>
-          change
-          <input
-            type="number"
-            label="change"
-            value={transaction.change}
-            name="change"
-            onChange={onChangeTransaction}
-          />
-        </label>
-        <button type="submit">finish transaction</button>
-      </form>
-    </div>
+    <form onSubmit={create}>
+      {items.map((item, idx) => {
+        return (
+          <div key={idx} className="item">
+            <h3>item #{idx + 1}</h3>
+            <label>
+              name
+              <input
+                label="name"
+                value={item.name}
+                name="name"
+                onChange={(ev) => onChangeItems(ev, idx)}
+              />
+            </label>
+            <label>
+              quantity
+              <input
+                type="number"
+                label="quantity"
+                value={item.quantity}
+                name="quantity"
+                onChange={(ev) => onChangeItems(ev, idx)}
+              />
+            </label>
+            <label>
+              price
+              <input
+                type="number"
+                label="price"
+                value={item.price}
+                name="price"
+                onChange={(ev) => onChangeItems(ev, idx)}
+              />
+            </label>
+            <label>
+              discount
+              <input
+                type="number"
+                label="discount"
+                value={item.discount}
+                name="discount"
+                onChange={(ev) => onChangeItems(ev, idx)}
+              />
+            </label>
+            <label>
+              tax
+              <select
+                label="discount"
+                value={item.taxState}
+                name="taxState"
+                onChange={(ev) => onChangeItems(ev, idx)}
+              >
+                <option value="NY">NY</option>
+                <option value="none">none</option>
+              </select>
+            </label>
+          </div>
+        );
+      })}
+      <button type="button" onClick={addItem} aria-haspopup="true">
+        add more items
+      </button>
+      <button type="button" onClick={calculateTotal}>
+        calculate total
+      </button>
+      <label>
+        total
+        <input
+          type="number"
+          label="total"
+          value={transaction.total}
+          name="total"
+          onChange={onChangeTransaction}
+        />
+      </label>
+      <label>
+        tendered
+        <input
+          type="number"
+          label="tendered"
+          value={transaction.tendered}
+          name="tendered"
+          onChange={onChangeTransaction}
+        />
+      </label>
+      <button type="button" onClick={calculateChange}>
+        calculate change
+      </button>
+      <label>
+        change
+        <input
+          type="number"
+          label="change"
+          value={transaction.change}
+          name="change"
+          onChange={onChangeTransaction}
+        />
+      </label>
+      <button type="submit">finish transaction</button>
+    </form>
   );
 };
 

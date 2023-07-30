@@ -20,13 +20,22 @@ const MyTransactions = () => {
               <ul>
                 {items
                   .filter((item) => item.transactionId === trans.id)
-                  .map((item) => {
+                  .map((item, idx) => {
                     return (
-                      <li key={item.id}>
-                        {item.name} x{item.quantity}, {item.price}. (tax:{" "}
-                        {item.taxState === "NY" ? "New York" : "none"}.{" "}
-                        discount: {item.discount || "none"}{" "}
-                        {item.discount ? "%" : ""})
+                      <li key={item.id} className="itemInTrans">
+                        <p>
+                          <b>item #{idx + 1}</b>
+                        </p>
+                        <p>name: {item.name}</p>
+                        <p>quantity: {item.quantity}</p>
+                        <p>price: {item.price}</p>
+                        <p>
+                          discount: {item.discount || "none"}
+                          {item.discount ? "%" : ""}
+                        </p>
+                        <p>
+                          tax: {item.taxState === "NY" ? "New York" : "none"}
+                        </p>
                       </li>
                     );
                   })}

@@ -5,7 +5,12 @@ import Landing from "./Landing";
 import CreateAccount from "./CreateAccount";
 import MyTransactions from "./MyTransactions";
 import { useSelector, useDispatch } from "react-redux";
-import { loginWithToken, fetchTransactions, fetchItems } from "../store";
+import {
+  loginWithToken,
+  fetchTransactions,
+  fetchItems,
+  logout,
+} from "../store";
 import { Link, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -37,6 +42,10 @@ const App = () => {
       <h2>For when your point-of-sale is being a POS.</h2>
       {!!auth.id && (
         <div>
+          <div>
+            Welcome {auth.username}!!
+            <button onClick={() => dispatch(logout())}>Logout</button>
+          </div>
           <nav>
             <Link to="/">Cash Register</Link>
             <Link to="/transactions">My Transactions</Link>
