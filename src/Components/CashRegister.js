@@ -86,33 +86,45 @@ const CashRegister = () => {
         {items.map((item, idx) => {
           return (
             <div key={idx}>
-              <input
-                label="name"
-                value={item.name}
-                name="name"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-              <input
-                type="number"
-                label="quantity"
-                value={item.quantity}
-                name="quantity"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-              <input
-                type="number"
-                label="price"
-                value={item.price}
-                name="price"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-              <input
-                type="number"
-                label="discount"
-                value={item.discount}
-                name="discount"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
+              <label>
+                name
+                <input
+                  label="name"
+                  value={item.name}
+                  name="name"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                quantity
+                <input
+                  type="number"
+                  label="quantity"
+                  value={item.quantity}
+                  name="quantity"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                price
+                <input
+                  type="number"
+                  label="price"
+                  value={item.price}
+                  name="price"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                discount
+                <input
+                  type="number"
+                  label="discount"
+                  value={item.discount}
+                  name="discount"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
               <label>
                 tax?
                 <select
@@ -128,28 +140,39 @@ const CashRegister = () => {
             </div>
           );
         })}
-        <button onClick={addItem}>add more</button>
-        <input
-          type="number"
-          label="total"
-          value={transaction.total}
-          name="total"
-          onChange={onChangeTransaction}
-        />
-        <input
-          type="number"
-          label="tendered"
-          value={transaction.tendered}
-          name="tendered"
-          onChange={onChangeTransaction}
-        />
-        <input
-          type="number"
-          label="change"
-          value={transaction.change}
-          name="change"
-          onChange={onChangeTransaction}
-        />
+        <button type="button" onClick={addItem} aria-haspopup="true">
+          add more
+        </button>
+        <label>
+          total
+          <input
+            type="number"
+            label="total"
+            value={transaction.total}
+            name="total"
+            onChange={onChangeTransaction}
+          />
+        </label>
+        <label>
+          tendered
+          <input
+            type="number"
+            label="tendered"
+            value={transaction.tendered}
+            name="tendered"
+            onChange={onChangeTransaction}
+          />
+        </label>
+        <label>
+          change
+          <input
+            type="number"
+            label="change"
+            value={transaction.change}
+            name="change"
+            onChange={onChangeTransaction}
+          />
+        </label>
         <button type="submit">finish transaction</button>
       </form>
     </div>
