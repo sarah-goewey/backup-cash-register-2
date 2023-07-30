@@ -5,6 +5,7 @@ body {
 form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 form > * {
@@ -14,4 +15,11 @@ form > * {
 nav {
   display: flex;
   justify-content: space-around;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px auto;
 }

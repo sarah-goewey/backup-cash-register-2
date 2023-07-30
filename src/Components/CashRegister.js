@@ -85,7 +85,7 @@ const CashRegister = () => {
       <form onSubmit={create}>
         {items.map((item, idx) => {
           return (
-            <div key={idx}>
+            <div key={idx} className="item">
               <label>
                 name
                 <input
