@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, createTransaction } from "../store";
 
@@ -23,6 +23,10 @@ const CashRegister = () => {
       price: 0.0,
     },
   ]);
+
+  useEffect(() => {
+    console.log("transaction after change", transaction);
+  }, [transaction]);
 
   const onChangeTransaction = (ev) => {
     setTransaction({
@@ -73,6 +77,39 @@ const CashRegister = () => {
         price: 0.0,
       },
     ]);
+  };
+
+  const calculateTotal = () => {
+    let total = 0.0;
+    console.log(items);
+    for (const item of items) {
+      if (item.discount) {
+        const discountFraction = item.discount / 100;
+        const discountedPrice = item.price * (1 - discountFraction) * 1;
+        total += discountedPrice * item.quantity;
+        if (item.taxState === "NY") {
+          total += discountedPrice * 0.08875 * item.quantity;
+        }
+      } else {
+        total += item.price * item.quantity;
+        if (item.taxState === "NY") {
+          total += item.price * 0.08875 * item.quantity;
+        }
+      }
+    }
+
+    setTransaction({ ...transaction, total });
+  };
+
+  const calculateChange = () => {
+    console.log("transaction", transaction);
+
+    if (transaction.tendered * 1 < transaction.total * 1) {
+      alert("need more cash");
+    } else {
+      let change = transaction.tendered * 1 - transaction.total * 1;
+      setTransaction({ ...transaction, change });
+    }
   };
 
   return (
@@ -141,7 +178,10 @@ const CashRegister = () => {
           );
         })}
         <button type="button" onClick={addItem} aria-haspopup="true">
-          add more
+          add more items
+        </button>
+        <button type="button" onClick={calculateTotal}>
+          calculate total
         </button>
         <label>
           total
@@ -163,6 +203,9 @@ const CashRegister = () => {
             onChange={onChangeTransaction}
           />
         </label>
+        <button type="button" onClick={calculateChange}>
+          calculate change
+        </button>
         <label>
           change
           <input
