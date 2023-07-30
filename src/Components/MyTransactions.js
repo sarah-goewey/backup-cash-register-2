@@ -10,10 +10,13 @@ const MyTransactions = () => {
       <ul>
         {transactions.map((trans) => {
           return (
-            <li key={trans.id}>
+            <li key={trans.id} className="transaction">
               <p>Transaction # {trans.id}</p>
-              <p>Date: {trans.updatedAt}</p>
+              <p>Date: {trans.updatedAt.slice(0, 10)}</p>
               <p>Total: {trans.total}</p>
+              <p>Tendered: {trans.tendered}</p>
+              <p>Change: {trans.change}</p>
+              <hr />
               <ul>
                 {items
                   .filter((item) => item.transactionId === trans.id)

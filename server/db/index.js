@@ -19,8 +19,8 @@ const syncAndSeed = async () => {
   ]);
 
   const moesTransaction = await Transaction.create({
-    taxState: "NY",
     userId: moe.id,
+    tendered: 70.0,
   });
 
   await Promise.all([
@@ -44,6 +44,42 @@ const syncAndSeed = async () => {
       taxState: "NY",
     }),
   ]);
+
+  //calculate total of moesTransaction
+  const items = await moesTransaction.getItems();
+  let totalCents = 0;
+  for (const item of items) {
+    if (item.discount) {
+      const discountFraction = item.discount / 100;
+      const discountedPriceCents = Math.round(
+        item.price * (1 - discountFraction) * 100
+      );
+      totalCents += discountedPriceCents * item.quantity;
+      if (item.taxState === "NY") {
+        const taxAmountCents = Math.round(
+          discountedPriceCents * 0.08875 * item.quantity
+        );
+        totalCents += taxAmountCents;
+      }
+    } else {
+      const priceCents = Math.round(item.price * 100);
+      totalCents += priceCents * item.quantity;
+      if (item.taxState === "NY") {
+        const taxAmountCents = Math.round(priceCents * 0.08875 * item.quantity);
+        totalCents += taxAmountCents;
+      }
+    }
+  }
+  const totalDollars = (totalCents / 100).toFixed(2);
+  moesTransaction.total = totalDollars;
+  await moesTransaction.save();
+
+  //calculate change of moesTransaction
+  const tenderedCents = moesTransaction.tendered * 100;
+  const totalInCents = moesTransaction.total * 100;
+  const changeCents = tenderedCents - totalInCents;
+  moesTransaction.change = (changeCents / 100).toFixed(2);
+  await moesTransaction.save();
 
   return {
     users: {

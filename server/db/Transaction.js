@@ -11,18 +11,6 @@ const Transaction = conn.define("transaction", {
     primaryKey: true,
     defaultValue: UUIDV4,
   },
-  /*taxState: {
-    type: ENUM("NY", "none"),
-    defaultValue: "none",
-  },
-  discount: {
-    type: INTEGER,
-    allowNull: true,
-    validate: {
-      min: 0,
-      max: 99,
-    },
-  },*/
   total: {
     type: DECIMAL(10, 2),
   },
@@ -31,10 +19,6 @@ const Transaction = conn.define("transaction", {
   },
   change: {
     type: DECIMAL(10, 2),
-  },
-  complete: {
-    type: BOOLEAN,
-    defaultValue: false,
   },
 });
 

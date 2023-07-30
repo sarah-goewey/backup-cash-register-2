@@ -16,7 +16,6 @@ app.get("/", isLoggedIn, async (req, res, next) => {
 
 app.post("/", async (req, res, next) => {
   try {
-    console.log("req.body for post item", req.body);
     const newItem = await Item.create(req.body);
     res.status(201).send(newItem);
   } catch (ex) {

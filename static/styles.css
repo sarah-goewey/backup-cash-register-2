@@ -23,3 +23,13 @@ nav {
   justify-content: space-around;
   margin: 10px auto;
 }
+
+.transaction {
+  border: 1px solid black;
+  margin: 5px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}

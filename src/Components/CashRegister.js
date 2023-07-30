@@ -10,7 +10,6 @@ const CashRegister = () => {
     total: 0.0,
     tendered: 0.0,
     change: 0.0,
-    complete: false,
     userId: auth.id,
   });
 
@@ -24,6 +23,7 @@ const CashRegister = () => {
     },
   ]);
 
+  //for development - remove later
   useEffect(() => {
     console.log("transaction after change", transaction);
   }, [transaction]);
@@ -65,7 +65,6 @@ const CashRegister = () => {
       total: 0.0,
       tendered: 0.0,
       change: 0.0,
-      complete: false,
       userId: auth.id,
     });
     setItems([
@@ -80,34 +79,45 @@ const CashRegister = () => {
   };
 
   const calculateTotal = () => {
-    let total = 0.0;
-    console.log(items);
+    let totalCents = 0;
     for (const item of items) {
       if (item.discount) {
         const discountFraction = item.discount / 100;
-        const discountedPrice = item.price * (1 - discountFraction) * 1;
-        total += discountedPrice * item.quantity;
+        const discountedPriceCents = Math.round(
+          item.price * (1 - discountFraction) * 100
+        );
+        totalCents += discountedPriceCents * item.quantity;
         if (item.taxState === "NY") {
-          total += discountedPrice * 0.08875 * item.quantity;
+          const taxAmountCents = Math.round(
+            discountedPriceCents * 0.08875 * item.quantity
+          );
+          totalCents += taxAmountCents;
         }
       } else {
-        total += item.price * item.quantity;
+        const priceCents = Math.round(item.price * 100);
+        totalCents += priceCents * item.quantity;
         if (item.taxState === "NY") {
-          total += item.price * 0.08875 * item.quantity;
+          const taxAmountCents = Math.round(
+            priceCents * 0.08875 * item.quantity
+          );
+          totalCents += taxAmountCents;
         }
       }
     }
+    const total = (totalCents / 100).toFixed(2);
 
     setTransaction({ ...transaction, total });
   };
 
   const calculateChange = () => {
-    console.log("transaction", transaction);
-
     if (transaction.tendered * 1 < transaction.total * 1) {
       alert("need more cash");
     } else {
-      let change = transaction.tendered * 1 - transaction.total * 1;
+      const tenderedCents = transaction.tendered * 100;
+      const totalCents = transaction.total * 100;
+      const changeCents = tenderedCents - totalCents;
+
+      const change = (changeCents / 100).toFixed(2);
       setTransaction({ ...transaction, change });
     }
   };
