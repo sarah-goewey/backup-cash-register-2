@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { attemptLogin } from "../store";
+import { attemptLogin, register } from "../store";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -13,14 +15,15 @@ const CreateAccount = () => {
     setCredentials({ ...credentials, [ev.target.name]: ev.target.value });
   };
 
-  const login = (ev) => {
+  const createAccount = (ev) => {
     ev.preventDefault();
-    dispatch(attemptLogin(credentials));
+    dispatch(register(credentials));
+    navigate("/");
   };
   return (
     <div>
       <h2>Create Account</h2>
-      <form onSubmit={login}>
+      <form onSubmit={createAccount}>
         <input
           placeholder="username"
           value={credentials.username}
@@ -33,7 +36,7 @@ const CreateAccount = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Login</button>
+        <button>Create Account</button>
       </form>
     </div>
   );
