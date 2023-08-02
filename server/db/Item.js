@@ -13,7 +13,7 @@ const Item = conn.define("item", {
   },
   taxState: {
     type: ENUM("NY", "none"),
-    defaultValue: "none",
+    defaultValue: "NY",
   },
   discount: {
     type: INTEGER,

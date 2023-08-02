@@ -15,7 +15,7 @@ const CashRegister = () => {
 
   const [items, setItems] = useState([
     {
-      taxState: "none",
+      taxState: "NY",
       discount: 0.0,
       name: "unnamed item",
       quantity: 1,
@@ -49,7 +49,7 @@ const CashRegister = () => {
     setItems([
       ...items,
       {
-        taxState: "none",
+        taxState: "NY",
         discount: 0.0,
         name: "unnamed item",
         quantity: 1,
@@ -73,7 +73,7 @@ const CashRegister = () => {
     });
     setItems([
       {
-        taxState: "none",
+        taxState: "NY",
         discount: 0.0,
         name: "unnamed item",
         quantity: 1,
