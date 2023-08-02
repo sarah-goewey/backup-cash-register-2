@@ -188,16 +188,9 @@ const CashRegister = () => {
       <button type="button" onClick={calculateTotal}>
         calculate total
       </button>
-      <label>
-        total
-        <input
-          type="number"
-          label="total"
-          value={transaction.total}
-          name="total"
-          onChange={onChangeTransaction}
-        />
-      </label>
+      <p>
+        total: <b>{transaction.total || ""}</b>
+      </p>
       <label>
         tendered
         <input
@@ -211,16 +204,9 @@ const CashRegister = () => {
       <button type="button" onClick={calculateChange}>
         calculate change
       </button>
-      <label>
-        change
-        <input
-          type="number"
-          label="change"
-          value={transaction.change}
-          name="change"
-          onChange={onChangeTransaction}
-        />
-      </label>
+      <p>
+        change: <b>{transaction.change || ""}</b>
+      </p>
       <button type="submit">finish transaction</button>
     </form>
   );
