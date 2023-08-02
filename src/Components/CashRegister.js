@@ -24,9 +24,9 @@ const CashRegister = () => {
   ]);
 
   //for development - remove later
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("transaction after change", transaction);
-  }, [transaction]);
+  }, [transaction]);*/
 
   const onChangeTransaction = (ev) => {
     setTransaction({
@@ -56,6 +56,10 @@ const CashRegister = () => {
         price: 0.0,
       },
     ]);
+  };
+
+  const cancelItem = (item) => {
+    setItems(items.filter((i) => i !== item));
   };
 
   const create = async (ev) => {
@@ -127,7 +131,15 @@ const CashRegister = () => {
       {items.map((item, idx) => {
         return (
           <div key={idx} className="item">
-            <h3>item #{idx + 1}</h3>
+            <h3>
+              item #{idx + 1}
+              <button
+                onClick={() => cancelItem(item)}
+                style={{ width: "25px", marginLeft: "15px" }}
+              >
+                x
+              </button>
+            </h3>
             <label>
               name
               <input
