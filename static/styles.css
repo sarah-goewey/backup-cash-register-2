@@ -76,7 +76,7 @@ select {
   align-items: space-around;
 }
 
-.landing > button {
+button {
   margin: 10px auto;
   width: 150px;
 }
