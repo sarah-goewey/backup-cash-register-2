@@ -9,20 +9,16 @@ const Landing = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <div>
-        <button onClick={() => navigate("/login")}>Login</button>
-        <button onClick={() => navigate("/createaccount")}>
-          Create Account
-        </button>
-        <button
-          onClick={() =>
-            dispatch(attemptLogin({ username: "moe", password: "123" }))
-          }
-        >
-          Demo
-        </button>
-      </div>
+    <div className="landing">
+      <button onClick={() => navigate("/login")}>Login</button>
+      <button onClick={() => navigate("/createaccount")}>Create Account</button>
+      <button
+        onClick={() =>
+          dispatch(attemptLogin({ username: "moe", password: "123" }))
+        }
+      >
+        Demo
+      </button>
     </div>
   );
 };
