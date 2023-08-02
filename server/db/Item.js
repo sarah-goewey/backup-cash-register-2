@@ -12,7 +12,7 @@ const Item = conn.define("item", {
     defaultValue: UUIDV4,
   },
   taxState: {
-    type: ENUM("NY", "none"),
+    type: ENUM("NY", "NJ", "CT", "PA", "none"),
     defaultValue: "NY",
   },
   discount: {

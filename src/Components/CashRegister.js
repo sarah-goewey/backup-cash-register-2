@@ -91,26 +91,38 @@ const CashRegister = () => {
           item.price * (1 - discountFraction) * 100
         );
         totalCents += discountedPriceCents * item.quantity;
-        if (item.taxState === "NY") {
-          const taxAmountCents = Math.round(
-            discountedPriceCents * 0.08875 * item.quantity
-          );
+        if (item.taxState !== "none") {
+          const taxAmountCents = calculateTax(discountedPriceCents, item);
           totalCents += taxAmountCents;
         }
       } else {
         const priceCents = Math.round(item.price * 100);
         totalCents += priceCents * item.quantity;
-        if (item.taxState === "NY") {
-          const taxAmountCents = Math.round(
-            priceCents * 0.08875 * item.quantity
-          );
+        if (item.taxState !== "none") {
+          const taxAmountCents = calculateTax(priceCents, item);
           totalCents += taxAmountCents;
         }
       }
     }
     const total = (totalCents / 100).toFixed(2);
-
     setTransaction({ ...transaction, total });
+  };
+
+  const calculateTax = (priceCents, item) => {
+    let taxAmountCents = 0;
+    if (item.taxState === "NY") {
+      taxAmountCents = Math.round(priceCents * 0.08875 * item.quantity);
+    }
+    if (item.taxState === "NJ") {
+      taxAmountCents = Math.round(priceCents * 0.0663 * item.quantity);
+    }
+    if (item.taxState === "CT") {
+      taxAmountCents = Math.round(priceCents * 0.0635 * item.quantity);
+    }
+    if (item.taxState === "PA") {
+      taxAmountCents = Math.round(priceCents * 0.08 * item.quantity);
+    }
+    return taxAmountCents;
   };
 
   const calculateChange = () => {
@@ -188,6 +200,9 @@ const CashRegister = () => {
                 onChange={(ev) => onChangeItems(ev, idx)}
               >
                 <option value="NY">NY</option>
+                <option value="NJ">NJ</option>
+                <option value="CT">CT</option>
+                <option value="PA">PA</option>
                 <option value="none">none</option>
               </select>
             </label>
