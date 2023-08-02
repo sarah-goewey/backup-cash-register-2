@@ -199,10 +199,10 @@ const CashRegister = () => {
                 name="taxState"
                 onChange={(ev) => onChangeItems(ev, idx)}
               >
-                <option value="NY">NY</option>
-                <option value="NJ">NJ</option>
-                <option value="CT">CT</option>
-                <option value="PA">PA</option>
+                <option value="NY 8.875%">NY</option>
+                <option value="NJ 6.63%">NJ</option>
+                <option value="CT 6.35%">CT</option>
+                <option value="PA 8%">PA</option>
                 <option value="none">none</option>
               </select>
             </label>
