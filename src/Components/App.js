@@ -11,12 +11,14 @@ import {
   fetchItems,
   logout,
 } from "../store";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 
 const App = () => {
   const { auth } = useSelector((state) => state);
   const prevAuth = useRef(auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(loginWithToken());
   }, []);
@@ -36,6 +38,11 @@ const App = () => {
     prevAuth.current = auth;
   });
 
+  const startLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <div>
       <h1>Backup Cash Register</h1>
@@ -44,7 +51,7 @@ const App = () => {
         <div>
           <div>
             Welcome {auth.username}!!
-            <button onClick={() => dispatch(logout())}>Logout</button>
+            <button onClick={startLogout}>Logout</button>
           </div>
           <nav>
             <Link to="/">Cash Register</Link>
