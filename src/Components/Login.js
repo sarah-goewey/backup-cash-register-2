@@ -20,6 +20,11 @@ const Login = () => {
     dispatch(attemptLogin(credentials));
     navigate("/");
   };
+
+  const backToLanding = () => {
+    navigate("/");
+  };
+
   return (
     <div>
       <h2>Login</h2>
@@ -36,7 +41,10 @@ const Login = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Login</button>
+        <button type="submit">Login</button>
+        <button type="button" onClick={backToLanding}>
+          Back
+        </button>
       </form>
     </div>
   );
