@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, createTransaction } from "../store";
+import { createTransaction } from "../store";
 
 const CashRegister = () => {
   const { auth } = useSelector((state) => state);
@@ -22,11 +22,6 @@ const CashRegister = () => {
       price: 0.0,
     },
   ]);
-
-  //for development - remove later
-  /* useEffect(() => {
-    console.log("transaction after change", transaction);
-  }, [transaction]);*/
 
   const onChangeTransaction = (ev) => {
     setTransaction({

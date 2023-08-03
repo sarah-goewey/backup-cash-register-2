@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { attemptLogin, register } from "../store";
+import { register } from "../store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

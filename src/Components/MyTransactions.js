@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 const MyTransactions = () => {
-  const { auth, transactions, items } = useSelector((state) => state);
-  const dispatch = useDispatch();
+  const { transactions, items } = useSelector((state) => state);
+
   return (
     <div>
       <h1>My Transactions</h1>
