@@ -50,8 +50,10 @@ const App = () => {
       {!!auth.id && (
         <div>
           <div>
-            Welcome {auth.username}!!
-            <button onClick={startLogout}>Logout</button>
+            <h3>
+              Welcome {auth.username}!!
+              <button onClick={startLogout}>Logout</button>
+            </h3>
           </div>
           <nav>
             <Link to="/">Cash Register</Link>
