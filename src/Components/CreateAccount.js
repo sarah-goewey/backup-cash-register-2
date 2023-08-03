@@ -20,6 +20,11 @@ const CreateAccount = () => {
     dispatch(register(credentials));
     navigate("/");
   };
+
+  const backToLanding = () => {
+    navigate("/");
+  };
+
   return (
     <div>
       <h2>Create Account</h2>
@@ -36,7 +41,10 @@ const CreateAccount = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Create Account</button>
+        <button type="submit">Create Account</button>
+        <button type="button" onClick={backToLanding}>
+          Back
+        </button>
       </form>
     </div>
   );
