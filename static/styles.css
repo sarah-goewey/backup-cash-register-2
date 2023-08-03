@@ -30,7 +30,6 @@ nav > a {
 .item {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   margin: 10px auto;
 }
 
@@ -43,7 +42,6 @@ nav > a {
 .itemInTrans {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 10px;
 }
 
