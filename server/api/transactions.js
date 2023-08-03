@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express.Router();
-const { Transaction, User, Item } = require("../db");
+const { Transaction } = require("../db");
 const { isLoggedIn } = require("./middleware.js");
 
 module.exports = app;
