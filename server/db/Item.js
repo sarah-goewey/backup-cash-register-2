@@ -1,9 +1,5 @@
 const conn = require("./conn");
-const { STRING, UUID, UUIDV4, TEXT, BOOLEAN, ENUM, INTEGER, DECIMAL } =
-  conn.Sequelize;
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const JWT = process.env.JWT;
+const { STRING, UUID, UUIDV4, ENUM, INTEGER, DECIMAL } = conn.Sequelize;
 
 const Item = conn.define("item", {
   id: {
