@@ -17,7 +17,7 @@ const MyTransactions = () => {
               <p>Tendered: {trans.tendered}</p>
               <p>Change: {trans.change}</p>
               <div className="dropdown">
-                <p>Mouseover here to view items</p>
+                <p>view items</p>
                 <div className="dropdown-content">
                   <ul>
                     {items
