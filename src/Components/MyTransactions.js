@@ -16,30 +16,35 @@ const MyTransactions = () => {
               <p>Total: {trans.total}</p>
               <p>Tendered: {trans.tendered}</p>
               <p>Change: {trans.change}</p>
-              <hr />
-              <ul>
-                {items
-                  .filter((item) => item.transactionId === trans.id)
-                  .map((item, idx) => {
-                    return (
-                      <li key={item.id} className="itemInTrans">
-                        <p>
-                          <b>item #{idx + 1}</b>
-                        </p>
-                        <p>name: {item.name}</p>
-                        <p>quantity: {item.quantity}</p>
-                        <p>price: {item.price}</p>
-                        <p>
-                          discount: {item.discount || "none"}
-                          {item.discount ? "%" : ""}
-                        </p>
-                        <p>
-                          tax: {item.taxState === "NY" ? "New York" : "none"}
-                        </p>
-                      </li>
-                    );
-                  })}
-              </ul>
+              <div className="dropdown">
+                <p>Mouseover here to view items</p>
+                <div className="dropdown-content">
+                  <ul>
+                    {items
+                      .filter((item) => item.transactionId === trans.id)
+                      .map((item, idx) => {
+                        return (
+                          <li key={item.id} className="itemInTrans">
+                            <p>
+                              <b>item #{idx + 1}</b>
+                            </p>
+                            <p>name: {item.name}</p>
+                            <p>quantity: {item.quantity}</p>
+                            <p>price: {item.price}</p>
+                            <p>
+                              discount: {item.discount || "none"}
+                              {item.discount ? "%" : ""}
+                            </p>
+                            <p>
+                              tax:{" "}
+                              {item.taxState === "NY" ? "New York" : "none"}
+                            </p>
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </div>
+              </div>
             </li>
           );
         })}
