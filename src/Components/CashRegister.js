@@ -24,6 +24,7 @@ const CashRegister = () => {
   ]);
 
   const [globalDiscount, setGlobalDiscount] = useState(0.0);
+  const [globalTaxState, setGlobalTaxState] = useState("NY");
 
   const onChangeTransaction = (ev) => {
     setTransaction({
@@ -145,6 +146,15 @@ const CashRegister = () => {
     setItems(updatedItems);
   };
 
+  const addGlobalTaxState = (globalTaxState) => {
+    setGlobalTaxState(globalTaxState);
+    const updatedItems = items.map((item) => ({
+      ...item,
+      taxState: globalTaxState,
+    }));
+    setItems(updatedItems);
+  };
+
   return (
     <form onSubmit={create}>
       {items.map((item, idx) => {
@@ -201,7 +211,7 @@ const CashRegister = () => {
             <label>
               tax
               <select
-                label="discount"
+                label="taxState"
                 value={item.taxState}
                 name="taxState"
                 onChange={(ev) => onChangeItems(ev, idx)}
@@ -228,6 +238,21 @@ const CashRegister = () => {
           name="discount"
           onChange={(ev) => addGlobalDiscount(ev.target.value)}
         />
+      </label>
+      <label>
+        global tax
+        <select
+          label="taxState"
+          value={globalTaxState}
+          name="taxState"
+          onChange={(ev) => addGlobalTaxState(ev.target.value)}
+        >
+          <option value="NY">NY 8.875%</option>
+          <option value="NJ">NJ 6.63%</option>
+          <option value="CT">CT 6.35%</option>
+          <option value="PA">PA 8%</option>
+          <option value="none">none</option>
+        </select>
       </label>
       <button type="button" onClick={calculateTotal}>
         calculate total
