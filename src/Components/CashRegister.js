@@ -82,6 +82,7 @@ const CashRegister = () => {
   const calculateTotal = () => {
     let totalCents = 0;
     for (const item of items) {
+      console.log("item.taxState", item.taxState);
       if (item.discount) {
         const discountFraction = item.discount / 100;
         const discountedPriceCents = Math.round(
@@ -137,9 +138,11 @@ const CashRegister = () => {
 
   const addGlobalDiscount = (globalDiscount) => {
     setGlobalDiscount(globalDiscount);
-    items.forEach((item) => {
-      item.discount = globalDiscount;
-    });
+    const updatedItems = items.map((item) => ({
+      ...item,
+      discount: globalDiscount,
+    }));
+    setItems(updatedItems);
   };
 
   return (
@@ -203,10 +206,10 @@ const CashRegister = () => {
                 name="taxState"
                 onChange={(ev) => onChangeItems(ev, idx)}
               >
-                <option value="NY 8.875%">NY</option>
-                <option value="NJ 6.63%">NJ</option>
-                <option value="CT 6.35%">CT</option>
-                <option value="PA 8%">PA</option>
+                <option value="NY">NY 8.875%</option>
+                <option value="NJ">NJ 6.63%</option>
+                <option value="CT">CT 6.35%</option>
+                <option value="PA">PA 8%</option>
                 <option value="none">none</option>
               </select>
             </label>
