@@ -23,6 +23,8 @@ const CashRegister = () => {
     },
   ]);
 
+  const [globalDiscount, setGlobalDiscount] = useState(0.0);
+
   const onChangeTransaction = (ev) => {
     setTransaction({
       ...transaction,
@@ -133,6 +135,13 @@ const CashRegister = () => {
     }
   };
 
+  const addGlobalDiscount = (globalDiscount) => {
+    setGlobalDiscount(globalDiscount);
+    items.forEach((item) => {
+      item.discount = globalDiscount;
+    });
+  };
+
   return (
     <form onSubmit={create}>
       {items.map((item, idx) => {
@@ -207,6 +216,16 @@ const CashRegister = () => {
       <button type="button" onClick={addItem} aria-haspopup="true">
         add more items
       </button>
+      <label>
+        global discount
+        <input
+          type="number"
+          label="discount"
+          value={globalDiscount}
+          name="discount"
+          onChange={(ev) => addGlobalDiscount(ev.target.value)}
+        />
+      </label>
       <button type="button" onClick={calculateTotal}>
         calculate total
       </button>
