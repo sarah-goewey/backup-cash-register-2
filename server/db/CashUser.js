@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT;
 const { Op } = require("sequelize");
 
-const User = conn.define("user", {
+const CashUser = conn.define("cashuser", {
   id: {
     type: UUID,
     primaryKey: true,
@@ -28,20 +28,20 @@ const User = conn.define("user", {
   },
 });
 
-User.addHook("beforeSave", async (user) => {
+CashUser.addHook("beforeSave", async (user) => {
   if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, 5);
   }
 });
 
-User.addHook("beforeFind", async (options) => {
+CashUser.addHook("beforeFind", async (options) => {
   if (
     options &&
     options.where &&
     options.where.id &&
     !options.excludeFromHook
   ) {
-    const user = await User.findByPk(options.where.id);
+    const user = await CashUser.findByPk(options.where.id);
     if (user) {
       const transactions = await Transaction.findAll({
         where: {
@@ -61,7 +61,7 @@ User.addHook("beforeFind", async (options) => {
   }
 });
 
-User.findByToken = async function (token) {
+CashUser.findByToken = async function (token) {
   try {
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await this.findByPk(id, { excludeFromHook: true });
@@ -76,11 +76,11 @@ User.findByToken = async function (token) {
   }
 };
 
-User.prototype.generateToken = function () {
+CashUser.prototype.generateToken = function () {
   return jwt.sign({ id: this.id }, JWT);
 };
 
-User.authenticate = async function ({ username, password }) {
+CashUser.authenticate = async function ({ username, password }) {
   const user = await this.findOne({
     where: {
       username,
@@ -94,16 +94,16 @@ User.authenticate = async function ({ username, password }) {
   throw error;
 };
 
-User.prototype.usersTransactions = function () {
+CashUser.prototype.usersTransactions = function () {
   return conn.models.transaction.findAll({
     order: [["createdAt"]],
     where: {
-      userId: this.id,
+      cashuserId: this.id,
     },
   });
 };
 
-User.prototype.usersItems = async function () {
+CashUser.prototype.usersItems = async function () {
   try {
     const transactions = await this.getTransactions({
       order: [["createdAt"]],
@@ -127,4 +127,4 @@ User.prototype.usersItems = async function () {
   }
 };
 
-module.exports = User;
+module.exports = CashUser;

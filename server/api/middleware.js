@@ -1,16 +1,15 @@
-const { User } = require('../db');
+const { CashUser } = require("../db");
 
-const isLoggedIn = async(req, res, next)=> {
+const isLoggedIn = async (req, res, next) => {
   try {
-    const user = await User.findByToken(req.headers.authorization);
+    const user = await CashUser.findByToken(req.headers.authorization);
     req.user = user;
     next();
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
 };
 
 module.exports = {
-  isLoggedIn
+  isLoggedIn,
 };

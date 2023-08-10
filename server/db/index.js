@@ -1,25 +1,25 @@
 const conn = require("./conn");
-const User = require("./User");
+const CashUser = require("./CashUser");
 const Transaction = require("./Transaction");
 const Item = require("./Item");
 
 Transaction.hasMany(Item);
 Item.belongsTo(Transaction);
 
-User.hasMany(Transaction);
-Transaction.belongsTo(User);
+CashUser.hasMany(Transaction);
+Transaction.belongsTo(CashUser);
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
   const [moe, lucy, larry, ethyl] = await Promise.all([
-    User.create({ username: "moe", password: "123" }),
-    User.create({ username: "lucy", password: "123" }),
-    User.create({ username: "larry", password: "123" }),
-    User.create({ username: "ethyl", password: "123" }),
+    CashUser.create({ username: "moe", password: "123" }),
+    CashUser.create({ username: "lucy", password: "123" }),
+    CashUser.create({ username: "larry", password: "123" }),
+    CashUser.create({ username: "ethyl", password: "123" }),
   ]);
 
   const moesTransaction = await Transaction.create({
-    userId: moe.id,
+    cashuserId: moe.id,
     tendered: 70.0,
   });
 
@@ -93,7 +93,7 @@ const syncAndSeed = async () => {
 
 module.exports = {
   syncAndSeed,
-  User,
+  CashUser,
   Transaction,
   Item,
 };
