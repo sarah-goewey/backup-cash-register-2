@@ -27,10 +27,26 @@ nav > a {
   color: white;
 }
 
-.item {
+.item,
+.globals {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 10px auto;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid white;
+}
+
+.item p {
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+  }
 }
 
 .transaction {

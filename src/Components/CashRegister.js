@@ -159,101 +159,104 @@ const CashRegister = () => {
     <form onSubmit={create}>
       {items.map((item, idx) => {
         return (
-          <div key={idx} className="item">
-            <h3>
-              item #{idx + 1}
+          <div key={idx}>
+            <div className="item">
+              <p>{idx + 1}.</p>
+              <label>
+                name
+                <input
+                  label="name"
+                  value={item.name}
+                  name="name"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                quantity
+                <input
+                  type="number"
+                  label="quantity"
+                  value={item.quantity}
+                  name="quantity"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                price
+                <input
+                  type="number"
+                  label="price"
+                  value={item.price}
+                  name="price"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                discount
+                <input
+                  type="number"
+                  label="discount"
+                  value={item.discount}
+                  name="discount"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                />
+              </label>
+              <label>
+                tax
+                <select
+                  label="taxState"
+                  value={item.taxState}
+                  name="taxState"
+                  onChange={(ev) => onChangeItems(ev, idx)}
+                >
+                  <option value="NY">NY 8.875%</option>
+                  <option value="NJ">NJ 6.63%</option>
+                  <option value="CT">CT 6.35%</option>
+                  <option value="PA">PA 8%</option>
+                  <option value="none">none</option>
+                </select>
+              </label>
               <button
                 onClick={() => cancelItem(item)}
                 style={{ width: "25px", marginLeft: "15px" }}
               >
                 x
               </button>
-            </h3>
-            <label>
-              name
-              <input
-                label="name"
-                value={item.name}
-                name="name"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-            </label>
-            <label>
-              quantity
-              <input
-                type="number"
-                label="quantity"
-                value={item.quantity}
-                name="quantity"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-            </label>
-            <label>
-              price
-              <input
-                type="number"
-                label="price"
-                value={item.price}
-                name="price"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-            </label>
-            <label>
-              discount
-              <input
-                type="number"
-                label="discount"
-                value={item.discount}
-                name="discount"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              />
-            </label>
-            <label>
-              tax
-              <select
-                label="taxState"
-                value={item.taxState}
-                name="taxState"
-                onChange={(ev) => onChangeItems(ev, idx)}
-              >
-                <option value="NY">NY 8.875%</option>
-                <option value="NJ">NJ 6.63%</option>
-                <option value="CT">CT 6.35%</option>
-                <option value="PA">PA 8%</option>
-                <option value="none">none</option>
-              </select>
-            </label>
+            </div>
+            <hr />
           </div>
         );
       })}
       <button type="button" onClick={addItem} aria-haspopup="true">
         add more items
       </button>
-      <label>
-        global discount
-        <input
-          type="number"
-          label="discount"
-          value={globalDiscount}
-          name="discount"
-          onChange={(ev) => addGlobalDiscount(ev.target.value)}
-        />
-      </label>
-      <label>
-        global tax
-        <select
-          label="taxState"
-          value={globalTaxState}
-          name="taxState"
-          onChange={(ev) => addGlobalTaxState(ev.target.value)}
-        >
-          <option value="NY">NY 8.875%</option>
-          <option value="NJ">NJ 6.63%</option>
-          <option value="CT">CT 6.35%</option>
-          <option value="PA">PA 8%</option>
-          <option value="none">none</option>
-        </select>
-      </label>
+      <div className="globals">
+        <label>
+          global discount
+          <input
+            type="number"
+            label="discount"
+            value={globalDiscount}
+            name="discount"
+            onChange={(ev) => addGlobalDiscount(ev.target.value)}
+          />
+        </label>
+        <label>
+          global tax
+          <select
+            label="taxState"
+            value={globalTaxState}
+            name="taxState"
+            onChange={(ev) => addGlobalTaxState(ev.target.value)}
+          >
+            <option value="NY">NY 8.875%</option>
+            <option value="NJ">NJ 6.63%</option>
+            <option value="CT">CT 6.35%</option>
+            <option value="PA">PA 8%</option>
+            <option value="none">none</option>
+          </select>
+        </label>
+      </div>
       <button type="button" onClick={calculateTotal}>
         calculate total
       </button>
