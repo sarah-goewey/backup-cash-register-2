@@ -27,18 +27,27 @@ nav > a {
   color: white;
 }
 
-.item,
-.globals {
+.item {
   display: flex;
   flex-direction: row;
-  margin: 10px auto;
-  justify-content: space-around;
   align-items: center;
-  border: 1px solid white;
+  width: 75%;
+  justify-content: space-around;
+  margin: auto;
 }
 
 .item p {
   margin-right: 10px;
+}
+
+.pairs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 75%;
+  justify-content: space-around;
+  margin: auto;
+  border: 1px solid white;
 }
 
 @media (max-width: 768px) {

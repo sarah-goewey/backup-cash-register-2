@@ -230,7 +230,7 @@ const CashRegister = () => {
       <button type="button" onClick={addItem} aria-haspopup="true">
         add more items
       </button>
-      <div className="globals">
+      <div className="pairs">
         <label>
           global discount
           <input
@@ -257,28 +257,32 @@ const CashRegister = () => {
           </select>
         </label>
       </div>
-      <button type="button" onClick={calculateTotal}>
-        calculate total
-      </button>
-      <p>
-        total: <b>{transaction.total || ""}</b>
-      </p>
-      <label>
-        tendered
-        <input
-          type="number"
-          label="tendered"
-          value={transaction.tendered}
-          name="tendered"
-          onChange={onChangeTransaction}
-        />
-      </label>
-      <button type="button" onClick={calculateChange}>
-        calculate change
-      </button>
-      <p>
-        change: <b>{transaction.change || ""}</b>
-      </p>
+      <div className="pairs">
+        <button type="button" onClick={calculateTotal}>
+          calculate total
+        </button>
+        <p>
+          total: <b>{transaction.total || ""}</b>
+        </p>
+      </div>
+      <div className="pairs">
+        <label>
+          tendered
+          <input
+            type="number"
+            label="tendered"
+            value={transaction.tendered}
+            name="tendered"
+            onChange={onChangeTransaction}
+          />
+        </label>
+        <button type="button" onClick={calculateChange}>
+          calculate change
+        </button>
+        <p>
+          change: <b>{transaction.change || ""}</b>
+        </p>
+      </div>
       <button type="submit">finish transaction</button>
     </form>
   );
