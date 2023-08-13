@@ -40,14 +40,9 @@ nav > a {
   margin-right: 10px;
 }
 
-.pairs {
+.globals {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 75%;
-  justify-content: space-around;
-  margin: auto;
-  border: 1px solid white;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {
