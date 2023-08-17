@@ -157,10 +157,10 @@ const CashRegister = () => {
 
   return (
     <form onSubmit={create}>
-      {items.map((item, idx) => {
-        return (
-          <div key={idx}>
-            <div className="item">
+      <div className="items">
+        {items.map((item, idx) => {
+          return (
+            <div key={idx} className="item">
               <p>{idx + 1}.</p>
               <label>
                 name
@@ -223,26 +223,26 @@ const CashRegister = () => {
                 x
               </button>
             </div>
-            <hr />
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
       <button type="button" onClick={addItem} aria-haspopup="true">
         add more items
       </button>
       <div className="globals">
         <label>
-          global discount
+          discount
           <input
             type="number"
             label="discount"
             value={globalDiscount}
             name="discount"
+            style={{ width: "75px" }}
             onChange={(ev) => addGlobalDiscount(ev.target.value)}
           />
         </label>
         <label>
-          global tax
+          tax
           <select
             label="taxState"
             value={globalTaxState}
@@ -256,14 +256,13 @@ const CashRegister = () => {
             <option value="none">none</option>
           </select>
         </label>
-      </div>
-      <button type="button" onClick={calculateTotal}>
-        calculate total
-      </button>
-      <p>
-        total: <b>{transaction.total || ""}</b>
-      </p>
-      <div className="tenderedandchange">
+        <button type="button" onClick={calculateTotal}>
+          calculate total
+        </button>
+        <p>
+          total: <b>{transaction.total || ""}</b>
+        </p>
+
         <label>
           tendered
           <input
@@ -271,17 +270,18 @@ const CashRegister = () => {
             label="tendered"
             value={transaction.tendered}
             name="tendered"
+            style={{ width: "75px" }}
             onChange={onChangeTransaction}
           />
         </label>
         <button type="button" onClick={calculateChange}>
           calculate change
         </button>
+        <p>
+          change: <b>{transaction.change || ""}</b>
+        </p>
+        <button type="submit">finish transaction</button>
       </div>
-      <p>
-        change: <b>{transaction.change || ""}</b>
-      </p>
-      <button type="submit">finish transaction</button>
     </form>
   );
 };
