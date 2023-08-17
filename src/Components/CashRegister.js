@@ -41,6 +41,7 @@ const CashRegister = () => {
       [name]: value,
     };
     setItems(copy);
+    calculateSubTotal(copy[idx]);
   };
 
   const addItem = () => {
@@ -80,10 +81,33 @@ const CashRegister = () => {
     ]);
   };
 
+  const calculateSubTotal = (item) => {
+    let totalCents = 0;
+    if (item.discount) {
+      const discountFraction = item.discount / 100;
+      const discountedPriceCents = Math.round(
+        item.price * (1 - discountFraction) * 100
+      );
+      totalCents += discountedPriceCents * item.quantity;
+      if (item.taxState !== "none") {
+        const taxAmountCents = calculateTax(discountedPriceCents, item);
+        totalCents += taxAmountCents;
+      }
+    } else {
+      const priceCents = Math.round(item.price * 100);
+      totalCents += priceCents * item.quantity;
+      if (item.taxState !== "none") {
+        const taxAmountCents = calculateTax(priceCents, item);
+        totalCents += taxAmountCents;
+      }
+    }
+    const subtotal = (totalCents / 100).toFixed(2);
+    item.subtotal = subtotal;
+  };
+
   const calculateTotal = () => {
     let totalCents = 0;
     for (const item of items) {
-      console.log("item.taxState", item.taxState);
       if (item.discount) {
         const discountFraction = item.discount / 100;
         const discountedPriceCents = Math.round(
@@ -144,6 +168,8 @@ const CashRegister = () => {
       discount: globalDiscount,
     }));
     setItems(updatedItems);
+
+    updatedItems.forEach(calculateSubTotal);
   };
 
   const addGlobalTaxState = (globalTaxState) => {
@@ -153,6 +179,8 @@ const CashRegister = () => {
       taxState: globalTaxState,
     }));
     setItems(updatedItems);
+
+    updatedItems.forEach(calculateSubTotal);
   };
 
   return (
@@ -216,6 +244,7 @@ const CashRegister = () => {
                   <option value="none">none</option>
                 </select>
               </label>
+              <p>subtotal: {item.subtotal || "0.0"}</p>
               <button
                 onClick={() => cancelItem(item)}
                 style={{ width: "25px", marginLeft: "15px" }}
@@ -260,7 +289,7 @@ const CashRegister = () => {
           calculate total
         </button>
         <p>
-          total: <b>{transaction.total || ""}</b>
+          total: <b>{transaction.total || "0.0"}</b>
         </p>
 
         <label>
@@ -278,7 +307,7 @@ const CashRegister = () => {
           calculate change
         </button>
         <p>
-          change: <b>{transaction.change || ""}</b>
+          change: <b>{transaction.change || "0.0"}</b>
         </p>
         <button type="submit">finish transaction</button>
       </div>
