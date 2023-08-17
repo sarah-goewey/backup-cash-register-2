@@ -108,6 +108,17 @@ const CashRegister = () => {
   const calculateTotal = () => {
     let totalCents = 0;
     for (const item of items) {
+      if (item.subtotal) {
+        totalCents += item.subtotal * 100;
+      }
+    }
+    const total = (totalCents / 100).toFixed(2);
+    setTransaction({ ...transaction, total });
+  };
+
+  /* const calculateTotal = () => {
+    let totalCents = 0;
+    for (const item of items) {
       if (item.discount) {
         const discountFraction = item.discount / 100;
         const discountedPriceCents = Math.round(
@@ -129,7 +140,7 @@ const CashRegister = () => {
     }
     const total = (totalCents / 100).toFixed(2);
     setTransaction({ ...transaction, total });
-  };
+  };*/
 
   const calculateTax = (priceCents, item) => {
     let taxAmountCents = 0;
